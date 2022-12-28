@@ -49,6 +49,7 @@ functions:
     memorySize: 512
     timeout: 10
     tracing: Active
+    provisionedConcurrency: 3
     events:
       - httpApi:
           path: /fake-user
