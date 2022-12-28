@@ -5,7 +5,7 @@
 
 service: ruby-serverless-demo
 # app and org for use with dashboard.serverless.com
-app: ruby-demo-app
+app: ruby-serverless
 org: thermanowicz
 
 
@@ -16,6 +16,10 @@ provider:
   runtime: ruby2.7
   stage: prod
   region: eu-central-1
+  httpApi:
+    name: ruby-sls-api
+    metrics: true
+
 
 # you can define service wide environment variables here
 #  environment:
@@ -24,14 +28,32 @@ provider:
 functions:
   hello:
     handler: handler.hello
+    memorySize: 512
+    timeout: 10
+    tracing: Active
     events:
       - httpApi:
           path: /hello
           method: get
   goodbye:
     handler: handler.bye
+    memorySize: 512
+    timeout: 10
+    tracing: Active
     events:
       - httpApi:
           path: /bye
           method: get
+  fake_user:
+    handler: handler.rand_user
+    memorySize: 512
+    timeout: 10
+    tracing: Active
+    events:
+      - httpApi:
+          path: /fake-user
+          method: get
 
+
+plugins:
+  - serverless-ruby-layer
