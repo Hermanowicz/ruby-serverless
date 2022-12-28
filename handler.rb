@@ -9,7 +9,6 @@ def hello(event:, context:)
                       input: event.fetch('body', 'body-not-found')
                     }
                   })
-  res
 end
 
 def rand_user(event:, context:)
@@ -25,7 +24,6 @@ def rand_user(event:, context:)
                       }
                     }
                   })
-  res
 end
 
 def bye(event:, context:)
@@ -36,5 +34,4 @@ def bye(event:, context:)
                       input: event.fetch('body', 'body-not-found')
                     }
                   })
-  res
 end
