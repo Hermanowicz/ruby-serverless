@@ -54,3 +54,17 @@ def testing(event:, context:)
                   })
   return res
 end
+
+
+def list_bucket_objects(event:, context:)
+  res = Helpers.list_objects_in_do
+  puts "Res: #{res}"
+  res = JSON.dump({
+                    statusCode: 200,
+                    body: {
+                      message: 'Go Serverless v1.0! Your function "list_bucket_objects" executed successfully!',
+                      input: event.fetch('body', 'body-not-found')
+                    }
+                  })
+  return res
+end

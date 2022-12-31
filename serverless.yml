@@ -8,7 +8,6 @@ service: ruby-serverless-demo
 app: ruby-serverless
 org: thermanowicz
 
-
 frameworkVersion: '3'
 
 provider:
@@ -21,11 +20,6 @@ provider:
     metrics: true
   iam:
     role: arn:aws:iam::901978288702:role/SyncLambda
-
-
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
 
 functions:
   hello:
@@ -64,6 +58,16 @@ functions:
     events:
       - httpApi:
           path: /testing
+          method: get
+  list_bucket_objects:
+    handler: handler.list_bucket_objects
+    memorySize: 512
+    timeout: 30
+    tracing: Active
+    logRetentionInDays: 14
+    events:
+      - httpApi:
+          path: /list-bucket-objects
           method: get
 
 
