@@ -21,9 +21,15 @@ provider:
   iam:
     role: arn:aws:iam::901978288702:role/SyncLambda
 
-constructs:
-  files-to-pull:
-    type: queue
+#constructs:
+#  filestopull:
+#    type: queue
+#    worker:
+#      handler: handler.print_messages
+#      memorySize: 512
+#      timeout: 30
+#      tracing: Active
+#      logRetentionInDays: 14
 
 functions:
   hello:
@@ -69,6 +75,8 @@ functions:
     timeout: 30
     tracing: Active
     logRetentionInDays: 14
+#    environment:
+#      QUEUE_URL = ${construct:filestopull.queueUrl}
     events:
       - httpApi:
           path: /list-bucket-objects

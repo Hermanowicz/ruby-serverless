@@ -68,3 +68,15 @@ def list_bucket_objects(event:, context:)
                   })
   return res
 end
+
+
+# def print_messages(event:, context:)
+#   res = JSON.dump({
+#                     statusCode: 200,
+#                     body: {
+#                       message: 'Go Serverless v1.0! Your function "print_messages" executed successfully!',
+#                       input: event.fetch('Records', 'body-not-found')
+#                     }
+#                   })
+#   return res
+# end

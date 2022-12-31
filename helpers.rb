@@ -3,6 +3,7 @@ require 'aws-sdk-s3'
 require 'json'
 
 module Helpers
+
   def create_do_s3_client(secret)
     # Creating client for Digital Ocean spaces, (S3 compatible object store).
     begin
@@ -27,13 +28,14 @@ module Helpers
       client = create_do_s3_client(secret)
       objects = client.list_objects({bucket: secret.fetch("bucket")})
       objects.contents.each do |obj|
-        obj_list << obj[:key]
+        obj_list << obj["key"]
       end
       return obj_list
     rescue StandardError => e
       puts "There was an error while calling #list_objects_in_do: #{e.full_message}"
     end
   end
+
 
   def get_do_s3_secret
     # Creating client and reading secret with data to connect to DO S3.
@@ -44,12 +46,6 @@ module Helpers
     rescue StandardError => e
       puts "There was an error while calling #get_do_s3_secret: #{e.full_message}"
     end
-
     secret = JSON.parse(get_secret_value_response.secret_string)
   end
-end
-
-def send_message_to_sqs(message)
-  sqs = Aws::SQS::Client.new(region: "eu-central-1")
-  queue_name = " "
 end
