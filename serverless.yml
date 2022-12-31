@@ -19,6 +19,8 @@ provider:
   httpApi:
     name: ruby-sls-api
     metrics: true
+  iam:
+    role: arn:aws:iam::901978288702:role/SyncLambda
 
 
 # you can define service wide environment variables here
@@ -53,6 +55,15 @@ functions:
     events:
       - httpApi:
           path: /fake-user
+          method: get
+  test_func:
+    handler: handler.testing
+    memorySize: 512
+    timeout: 10
+    tracing: Active
+    events:
+      - httpApi:
+          path: /testing
           method: get
 
 

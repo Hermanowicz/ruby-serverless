@@ -1,5 +1,8 @@
 require 'json'
 require 'faker'
+require_relative 'helpers'
+
+include Helpers
 
 def hello(event:, context:)
   res = JSON.dump({
@@ -9,6 +12,7 @@ def hello(event:, context:)
                       input: event.fetch('body', 'body-not-found')
                     }
                   })
+  return res
 end
 
 def rand_user(event:, context:)
@@ -24,6 +28,7 @@ def rand_user(event:, context:)
                       }
                     }
                   })
+  return res
 end
 
 def bye(event:, context:)
@@ -34,4 +39,18 @@ def bye(event:, context:)
                       input: event.fetch('body', 'body-not-found')
                     }
                   })
+  return res
+end
+
+def testing(event:, context:)
+  res = Helpers.get_do_s3_secret
+  puts "Res: #{res}"
+  res = JSON.dump({
+                    statusCode: 200,
+                    body: {
+                      message: 'Go Serverless v1.0! Your function "testing" executed successfully!',
+                      input: event.fetch('body', 'body-not-found')
+                    }
+                  })
+  return res
 end
