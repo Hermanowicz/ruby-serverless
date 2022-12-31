@@ -21,6 +21,10 @@ provider:
   iam:
     role: arn:aws:iam::901978288702:role/SyncLambda
 
+constructs:
+  files-to-pull:
+    type: queue
+
 functions:
   hello:
     handler: handler.hello
@@ -61,7 +65,7 @@ functions:
           method: get
   list_bucket_objects:
     handler: handler.list_bucket_objects
-    memorySize: 512
+    memorySize: 1024
     timeout: 30
     tracing: Active
     logRetentionInDays: 14
@@ -73,3 +77,4 @@ functions:
 
 plugins:
   - serverless-ruby-layer
+  - serverless-lift

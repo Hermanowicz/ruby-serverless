@@ -7,9 +7,9 @@ module Helpers
     # Creating client for Digital Ocean spaces, (S3 compatible object store).
     begin
       client = Aws::S3::Client.new(
-        access_key_id: secret.fetch(:key),
-        secret_access_key: secret.fetch(:secret),
-        endpoint: secret.fetch(:endpoint),
+        access_key_id: secret.fetch("key"),
+        secret_access_key: secret.fetch("secret"),
+        endpoint: secret.fetch("endpoint"),
         force_path_style: false,
         region: 'eu-central-1'
       )
@@ -25,7 +25,7 @@ module Helpers
     begin
       secret = get_do_s3_secret
       client = create_do_s3_client(secret)
-      objects = client.list_objects({bucket: secret.fetch(:bucket)})
+      objects = client.list_objects({bucket: secret.fetch("bucket")})
       objects.contents.each do |obj|
         obj_list << obj[:key]
       end
@@ -47,4 +47,9 @@ module Helpers
 
     secret = JSON.parse(get_secret_value_response.secret_string)
   end
+end
+
+def send_message_to_sqs(message)
+  sqs = Aws::SQS::Client.new(region: "eu-central-1")
+  queue_name = " "
 end
